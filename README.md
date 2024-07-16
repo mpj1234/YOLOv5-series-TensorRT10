@@ -10,16 +10,16 @@ TensorRT: TensorRT-10.2.0.19
 
 ## Support
 
-* [x] YOLOv5-cls support FP32/FP16/INT8 and Python/C++ API
-* [x] YOLOv5-det support FP32/FP16/INT8 and Python/C++ API
-* [x] YOLOv5-seg support FP32/FP16/INT8 and Python/C++ API
+* [x] YOLOv5-cls support FP32/FP16/INT8 和 Python/C++ API
+* [x] YOLOv5-det support FP32/FP16/INT8 和 Python/C++ API
+* [x] YOLOv5-seg support FP32/FP16/INT8 和 Python/C++ API
 
 ## Config
 
-* Choose the YOLOv5 sub-model n/s/m/l/x/n6/s6/m6/l6/x6 from command line arguments.
+* Choose the YOLOv5 sub-model n/s/m/l/x/n6/s6/m6/l6/x6 from comm和 line arguments.
 * Other configs please check [src/config.h](src/config.h)
 
-## Build and Run
+## Build 和 Run
 
 1. generate .wts from pytorch with .pt, or download .wts from model zoo
 
@@ -33,11 +33,11 @@ wget https://github.com/ultralytics/yolov5/releases/download/v7.0/yolov5n-seg.pt
 cp [PATH-TO-YOLOv5-series-TensorRT10]/yolov5/gen_wts.py .
 python gen_wts.py -w yolov5n-cls.pt -o yolov5n-cls.wts -t cls
 python gen_wts.py -w yolov5n.pt -o yolov5n.wts
-python gen_wts.py -w yolov5n-seg.pt -o yolov5n.wts -t seg
+python gen_wts.py -w yolov5n-seg.pt -o yolov5n-seg.wts -t seg
 # A file 'yolov5n.wts' will be generated.
 ```
 
-2. build and run
+2. build 和 run
 
 #### Classification
 
@@ -46,14 +46,14 @@ cd [PATH-TO-YOLOv5-series-TensorRT10]/YOLOv5-series-TensorRT10
 # Update kNumClass in src/config.h if your model is trained on custom dataset
 mkdir build
 cd build
-cp [PATH-TO-ultralytics-yolov5]/yolov5sn-cls.wts .
+cp [PATH-TO-ultralytics-yolov5]/yolov5n-cls.wts .
 cmake ..
 make
 
 # Download ImageNet labels
 wget https://github.com/joannzhang00/ImageNet-dataset-classes-labels/blob/main/imagenet_classes.txt
 
-# Build and serialize TensorRT engine
+# Build 和 serialize TensorRT engine
 ./yolov5_cls -s yolov5n-cls.wts yolov5n-cls.engine [n/s/m/l/x]
 
 # Run inference
@@ -61,7 +61,7 @@ wget https://github.com/joannzhang00/ImageNet-dataset-classes-labels/blob/main/i
 # The results are displayed in the console
 ```
 
-3. Optional, load and run the tensorrt model in Python
+3. Optional, load 和 run the tensorrt model in Python
 ```shell
 // Install python-tensorrt, pycuda, etc.
 // Ensure the yolov5n-cls.engine
@@ -84,7 +84,7 @@ cp [PATH-TO-ultralytics-yolov5]/yolov5n.wts .
 cmake ..
 make
 
-# Build and serialize TensorRT engine
+# Build 和 serialize TensorRT engine
 ./yolov5_det -s yolov5n.wts yolov5n.engine [n/s/m/l/x]
 
 # Run inference
@@ -103,7 +103,7 @@ cp [PATH-TO-ultralytics-yolov5]/yolov5n-seg.wts .
 cmake ..
 make
 
-# Build and serialize TensorRT engine
+# Build 和 serialize TensorRT engine
 ./yolov5_seg -s yolov5n-seg.wts yolov5n-seg.engine [n/s/m/l/x]
 
 # Download the labels file
@@ -115,7 +115,7 @@ wget -O coco.txt https://raw.githubusercontent.com/amikelive/coco-labels/master/
 ```
 
 ## INT8 Quantization
-1. Prepare calibration images, you can randomly select 1000s images from your train set. For coco, you can also download my calibration images `coco_calib` from [GoogleDrive](https://drive.google.com/drive/folders/1s7jE9DtOngZMzJC1uL307J2MiaGwdRSI?usp=sharing) or [BaiduPan](https://pan.baidu.com/s/1GOm_-JobpyLMAqZWCDUhKg) pwd: a9wh
+1. Prepare calibration images, you can r和omly select 1000s images from your train set. For coco, you can also download my calibration images `coco_calib` from [GoogleDrive](https://drive.google.com/drive/folders/1s7jE9DtOngZMzJC1uL307J2MiaGwdRSI?usp=sharing) or [BaiduPan](https://pan.baidu.com/s/1GOm_-JobpyLMAqZWCDUhKg) pwd: a9wh
 2. unzip it in yolov5_trt10/build
-3. set the macro `USE_INT8` in src/config.h and make again
-4. serialize the model and test
+3. set the macro `USE_INT8` in src/config.h 和 make again
+4. serialize the model 和 test
